@@ -16,9 +16,9 @@ td = turtle.Turtle()
 td.speed(0)
 td.penup()
 
-total_distance_all = 0
-total_distance_spaces = 0
-last_position = td.position()
+# The following code is from ChatGPT.
+total_distance = 0
+# End of ChatGPT code.
 
 print("Drawing with info from the given file:")
 turtleDrawTextFile = open(TEXTFILE, "r")
@@ -32,6 +32,12 @@ while line:
         color = parts[0]
         x = int(parts[1])
         y = int(parts[2])
+ 
+ # The following code is from ChatGPT. 
+        if td.isdown():
+            distance = td.distance(x, y)
+            total_distance += distance
+# End of ChatGPT code.
 
         window = Screen()
         window.setup(WIDTH, HEIGHT)
@@ -39,24 +45,8 @@ while line:
         td.goto(x,y)
         td.pendown()
 
-        '''Following code from ChatGPT.'''
-        current_position = (x, y)
-        segment_distance = td.distance(last_position[0], last_position[1])
-        total_distance_all += segment_distance
-        last_position = current_position
-        '''ChatGPT code done.'''
-
     if (len(parts) == 1):
         td.penup()
-
-        '''Following code from ChatGPT.'''
-        current_position = (x, y)
-        segment_distance = td.distance(last_position[0], last_position[1])
-        total_distance_spaces += segment_distance
-        last_position = current_position
-        '''ChatGPT code done.'''
-
-        total_distance = total_distance_all - total_distance_spaces
 
 td.goto(50, -150)
 td.write(f"Total Distance is {total_distance:.2f}")
